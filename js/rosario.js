@@ -166,7 +166,7 @@ function revealChart(){
 
 /* Contact email stuff */
 
-$("form").submit(function(e){
+$("#contact-form").submit(function(e){
     var error = "";
 
     if($("#email").val() == ""){
@@ -185,10 +185,42 @@ $("form").submit(function(e){
         $("#error").html('<div class="alert alert-danger" role="alert"><strong> ' + error + ' </strong>Address the above issues and try again!</div>');
         return false;
     } else {
-        
-        // Need to add code that will submit form but prevent page from reloading. Probably some combination of ajax + e.preventDefault()
-        
-        
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            url: "contact.php",
+            type: "POST",
+            data: data,
+            success: function(data){
+                console.log("success callback reached data from server: " + data);
+                if(data.status == 'success'){
+                   $("#error").html('<div class="alert alert-success" role="alert"><strong>Awesome!</strong>"I\'ll get back to you ASAP"</div>'); 
+                }
+                else if(data.status == 'error'){
+                    $("error").html('<div class="alert alert-danger" role="alert"><p><strong>Your Message could not be sent. Please try again later.</div>');
+                }
+                // alert("ajax post was successful - sent the following data: " + data);
+            },
+            error: function(data, e){
+//                console.log("error callback reached " + data);
+//                console.log(e);
+                $("#error").html('<div class="alert alert-danger" role="alert">Unable to send your message, please try again!</div>');
+                if (data.status==0) {
+                    alert('You are offline!!\n Please Check Your Network.');
+                } else if(data.status==404) {
+                    alert('Requested URL not found.');
+                } else if(data.status==500) {
+                    alert('Internel Server Error.');
+                } else if(e=='parsererror') {
+                   alert('Error.\nParsing JSON Request failed. - data sent = ' + data);
+                   console.log(e);
+                } else if(e=='timeout'){
+                    alert('Request Time out.');
+                } else {
+                    alert('Unknow Error.\n'+x.responseText);
+                }
+            }
+        });
         return true;
     }
 });
