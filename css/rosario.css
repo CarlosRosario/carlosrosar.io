@@ -30,7 +30,7 @@ body {
 }
 
 #quick-intro{
-    background: url('images/skyscraper.jpg') no-repeat center center;
+    background: url('../images/skyscraper.jpg') no-repeat center center;
     background-size: cover;
     height:650px;
 }
@@ -147,7 +147,7 @@ body {
 /* Break between education and experience section */
 
 #content-break{
-    background: url('images/my_setup_13.jpg') no-repeat center center fixed;
+    background: url('../images/my_setup_13.jpg') no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
