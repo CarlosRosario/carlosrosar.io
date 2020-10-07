@@ -24,9 +24,10 @@
         } else {
 
             $emailTo = "carlos.rosario1990@gmail.com";
-            $subject = "Message from your website from" . $_POST["fullname"];
-            $content = $_POST["message"];
-            $headers = "From: ".$_POST['email'];
+            $subject = "Message from carlosrosar.io from " . $_POST["fullname"];
+            $content = "From: " . $_POST["email"] . "\r\n" . $_POST["message"];
+            //$headers = "From: ".$_POST['email'];
+            $headers = "From: carlqejt@carlosrosar.io";
 
             if(mail($emailTo, $subject, $content, $headers)){
                 $response_array = array();
